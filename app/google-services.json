@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1045254642474",
+    "project_id": "warehousemanagement-80cb9",
+    "storage_bucket": "warehousemanagement-80cb9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1045254642474:android:9ad46a6e5bfc7c4d4e9c53",
+        "android_client_info": {
+          "package_name": "fpoly.vunvph33438.warehousemanagement"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvtTdIAxjOrvNOmBt_UvSPNhWvCrCbNZc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_hoaDon"
+            android:icon="@drawable/ic_home"
+            android:title="Quản lý hóa đơn" />
+        <item
+            android:id="@+id/nav_theLoai"
+            android:icon="@drawable/ic_types"
+            android:title="Quản lý thể loại" />
+        <item
+            android:id="@+id/nav_sanPham"
+            android:icon="@drawable/ic_product"
+            android:title="Quản lý sản phẩm" />
+        <item
+            android:id="@+id/nav_chiTietHoaDon"
+            android:icon="@drawable/ic_receipt"
+            android:title="Chi tiết hóa đơn" />
+        <item
+            android:id="@+id/nav_thanhVien"
+            android:icon="@drawable/ic_people"
+            android:title="Quản lý thành viên"
+            android:visible="false"/>
+    </group>
+    <group android:checkableBehavior="single">
+        <item android:title="Thống kê">
+            <menu>
+                <item
+                    android:id="@+id/sub_xuatKho"
+                    android:icon="@drawable/ic_export"
+                    android:title="Xuất kho theo tháng" />
+                <item
+                    android:id="@+id/sub_tonKho"
+                    android:icon="@drawable/ic_inventory"
+                    android:title="Tồn kho theo tháng" />
+                <item
+                    android:id="@+id/sub_nhapKho"
+                    android:icon="@drawable/ic_import"
+                    android:title="Nhập kho theo tháng" />
+            </menu>
+        </item>
+    </group>
+    <group android:checkableBehavior="single">
+        <item android:title="Người dùng">
+            <menu>
+                <item
+                    android:id="@+id/sub_addUser"
+                    android:icon="@drawable/ic_add_user"
+                    android:title="Thêm thủ kho"
+                    android:visible="false" />
+                <item
+                    android:id="@+id/sub_changePass"
+                    android:icon="@drawable/ic_reset"
+                    android:title="Đổi mật khẩu" />
+                <item
+                    android:id="@+id/sub_Logout"
+                    android:icon="@drawable/ic_logout"
+                    android:title="Đăng xuất" />
+            </menu>
+        </item>
+    </group>
+</menu>

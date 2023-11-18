@@ -55,8 +55,9 @@ public class DbHelper extends SQLiteOpenHelper {
 
         // Tạo bảng chi tiết hóa đơn
         String createTableChiTietHoaDon = "CREATE TABLE ChiTietHoaDon (" +
-                "id_sanPham INTEGER REFERENCES SanPham (id_sanPham) ON DELETE CASCADE, " +
-                "id_hoaDon INTEGER REFERENCES HoaDon (id_hoaDon) ON DELETE CASCADE, " +
+                "id_chiTietHoaDon INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "id_sanPham INTEGER REFERENCES SanPham(id_sanPham) ON DELETE CASCADE, " +
+                "id_hoaDon INTEGER REFERENCES HoaDon(id_hoaDon) ON DELETE CASCADE, " +
                 "soLuong INTEGER NOT NULL, " +
                 "donGia INTEGER NOT NULL)";
         db.execSQL(createTableChiTietHoaDon);
