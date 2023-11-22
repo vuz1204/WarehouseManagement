@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace = "fpoly.vunvph33438.warehousemanagement"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "fpoly.vunvph33438.warehousemanagement"

@@ -16,22 +16,13 @@
             android:name=".QuenMatKhauActivity"
             android:exported="false" />
         <activity
-            android:name=".SplashScreenActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Model.SplashScreenActivity"
-            android:exported="false" />
-        <activity
             android:name=".LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".activity_splash_screen"
-            android:exported="false" />
-        <activity
-            android:name=".activity_login"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SplashScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

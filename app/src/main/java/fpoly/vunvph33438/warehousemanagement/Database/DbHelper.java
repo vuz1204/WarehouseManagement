@@ -20,13 +20,14 @@ public class DbHelper extends SQLiteOpenHelper {
         // Tạo bảng thủ kho
         String createTableThuKho = "CREATE TABLE ThuKho (" +
                 "id_thuKho INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "username TEXT NOT NULL, " +
+                "username TEXT UNIQUE, " +
                 "password TEXT NOT NULL, " +
                 "fullname TEXT NOT NULL, " +
-                "email TEXT NOT NULL)";
+                "email TEXT NOT NULL, " +
+                "role INTEGER NOT NULL)";
         db.execSQL(createTableThuKho);
 
-        String insertDefaultThuKho = "INSERT INTO ThuKho (username, password, fullname, email) VALUES ('admin', 'admin', 'Nguyễn Văn Vũ', 'vanvu101204@gmail.com')";
+        String insertDefaultThuKho = "INSERT INTO ThuKho (username, password, fullname, email, role) VALUES ('admin', 'admin', 'Nguyễn Văn Vũ', 'vanvu101204@gmail.com', 0)";
         db.execSQL(insertDefaultThuKho);
 
         // Tạo bảng thể loại

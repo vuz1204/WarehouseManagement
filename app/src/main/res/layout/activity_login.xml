@@ -46,10 +46,10 @@
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edEmail"
+                    android:id="@+id/edUsername"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:hint="Email Address"
+                    android:hint="Username"
                     android:inputType="textEmailAddress"
                     android:padding="10dp" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -69,6 +69,12 @@
                     android:maxLength="20"
                     android:padding="10dp" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <Spinner
+                android:id="@+id/spinnerRole"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -91,13 +97,12 @@
                     android:text="I forgot my password"/>
             </RelativeLayout>
 
-            <com.google.android.material.button.MaterialButton
+            <Button
                 android:id="@+id/btnLogin"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:text="Login"
-                android:backgroundTint="@color/buttonColor"
-                app:cornerRadius="32dp" />
+                android:backgroundTint="@color/buttonColor" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

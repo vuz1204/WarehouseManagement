@@ -10,8 +10,8 @@
     tools:context=".Fragment.ThemThuKhoFragment">
 
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginBottom="20dp"
         android:src="@drawable/add_user" />
 
@@ -90,13 +90,18 @@
             android:padding="10dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.button.MaterialButton
+    <Spinner
+        android:id="@+id/spinnerAddRole"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"/>
+
+    <Button
         android:id="@+id/btnSaveAdd"
         android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:text="LƯU"
-        android:backgroundTint="@color/buttonColor"
-        app:cornerRadius="32dp" />
+        android:backgroundTint="@color/buttonColor" />
 
 </LinearLayout>

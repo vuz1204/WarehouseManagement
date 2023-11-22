@@ -1,66 +1,101 @@
 package fpoly.vunvph33438.warehousemanagement.Fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+
+import fpoly.vunvph33438.warehousemanagement.DAO.ThuKhoDAO;
+import fpoly.vunvph33438.warehousemanagement.Model.ThuKho;
 import fpoly.vunvph33438.warehousemanagement.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link DoiMatKhauFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class DoiMatKhauFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public DoiMatKhauFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DoiMatKhauFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static DoiMatKhauFragment newInstance(String param1, String param2) {
-        DoiMatKhauFragment fragment = new DoiMatKhauFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    View view;
+    EditText edOldPassWord, edNewPassword, edReNewPassword;
+    Button btnSaveChangePass;
+    ThuKhoDAO thuKhoDAO;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_doi_mat_khau, container, false);
+        view = inflater.inflate(R.layout.fragment_doi_mat_khau, container, false);
+
+        edOldPassWord = view.findViewById(R.id.edOldPassWord);
+        edNewPassword = view.findViewById(R.id.edNewPassword);
+        edReNewPassword = view.findViewById(R.id.edReNewPassword);
+        thuKhoDAO = new ThuKhoDAO(getActivity());
+
+        btnSaveChangePass = view.findViewById(R.id.btnSaveChangePass);
+        btnSaveChangePass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("USER_FILE", Context.MODE_PRIVATE);
+                String username = sharedPreferences.getString("USERNAME", "");
+
+                if (validate() > 0) {
+                    ThuKho thuKho = thuKhoDAO.selectID(username);
+
+                    if (thuKho != null) {
+                        thuKho.setPassword(edNewPassword.getText().toString());
+
+                        if (thuKhoDAO.updatePass(thuKho)) {
+                            Toast.makeText(getActivity(), "Thay đổi mật khẩu thành công", Toast.LENGTH_SHORT).show();
+
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("PASSWORD", edNewPassword.getText().toString());
+                            editor.apply();
+
+                            clearInputFields();
+                        } else {
+                            Toast.makeText(getActivity(), "Thay đổi mật khẩu thất bại", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(getActivity(), "User not found", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+        return view;
+    }
+
+    private void clearInputFields() {
+        edOldPassWord.setText("");
+        edNewPassword.setText("");
+        edReNewPassword.setText("");
+    }
+
+    public int validate() {
+        int check = 1;
+        if (edOldPassWord.getText().toString().isEmpty() || edNewPassword.getText().toString().isEmpty() || edReNewPassword.getText().toString().isEmpty()) {
+            Toast.makeText(getActivity(), "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+            check = -1;
+        } else {
+            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("USER_FILE", Context.MODE_PRIVATE);
+            String passOld = sharedPreferences.getString("PASSWORD", "");
+            String pass = edNewPassword.getText().toString();
+            String rePass = edReNewPassword.getText().toString();
+            if (!passOld.equals(edOldPassWord.getText().toString())) {
+                Toast.makeText(getActivity(), "Mật khẩu cũ sai", Toast.LENGTH_SHORT).show();
+                check = -1;
+            }
+            if (pass.equals(passOld)) {
+                Toast.makeText(getActivity(), "Mật khẩu mới không được giống với mật khẩu cũ", Toast.LENGTH_SHORT).show();
+                check = -1;
+            }
+            if (!pass.equals(rePass)) {
+                Toast.makeText(getActivity(), "Mật khẩu không trùng khớp", Toast.LENGTH_SHORT).show();
+                check = -1;
+            }
+        }
+        return check;
     }
 }

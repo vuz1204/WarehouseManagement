@@ -7,60 +7,121 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
 
+import java.util.ArrayList;
+
+import fpoly.vunvph33438.warehousemanagement.DAO.ThuKhoDAO;
+import fpoly.vunvph33438.warehousemanagement.Model.ThuKho;
 import fpoly.vunvph33438.warehousemanagement.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ThemThuKhoFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ThemThuKhoFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    View view;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    EditText edAddUsername, edAddName, edAddEmail, edAddPass, edAddRePass;
 
-    public ThemThuKhoFragment() {
-        // Required empty public constructor
-    }
+    ThuKhoDAO thuKhoDAO;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ThemThuKhoFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ThemThuKhoFragment newInstance(String param1, String param2) {
-        ThemThuKhoFragment fragment = new ThemThuKhoFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    Button btnSaveAdd;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    Spinner spinnerRole;
+
+    ArrayList<String> list = new ArrayList<>();
+
+    String valueRole;
+
+    int rolePosition;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_them_thu_kho, container, false);
+        view = inflater.inflate(R.layout.fragment_them_thu_kho, container, false);
+
+        edAddUsername = view.findViewById(R.id.edAddUsername);
+        edAddName = view.findViewById(R.id.edAddName);
+        edAddEmail = view.findViewById(R.id.edAddEmail);
+        edAddPass = view.findViewById(R.id.edAddPass);
+        edAddRePass = view.findViewById(R.id.edAddRePass);
+        thuKhoDAO = new ThuKhoDAO(getActivity());
+
+        spinnerRole = view.findViewById(R.id.spinnerAddRole);
+        list.add("Admin");
+        list.add("Thủ kho");
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, list);
+        spinnerRole.setAdapter(adapter);
+
+        spinnerRole.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                rolePosition = position;
+                valueRole = list.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        btnSaveAdd = view.findViewById(R.id.btnSaveAdd);
+        btnSaveAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (validate() > 0) {
+                    ThuKho thuKho = new ThuKho();
+                    thuKho.setUsername(edAddUsername.getText().toString());
+                    thuKho.setFullname(edAddName.getText().toString());
+                    thuKho.setEmail(edAddEmail.getText().toString());
+                    thuKho.setPassword(edAddPass.getText().toString());
+                    thuKho.setRole(rolePosition);
+                    if (thuKhoDAO.insertData(thuKho)) {
+                        Toast.makeText(getActivity(), "Thêm thành công", Toast.LENGTH_SHORT).show();
+                        clearInputFields();
+                    } else {
+                        Toast.makeText(getActivity(), "Thêm thất bại", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+        return view;
+    }
+
+    public int validate() {
+        int check = 1;
+        String username = edAddUsername.getText().toString();
+        String name = edAddName.getText().toString();
+        String email = edAddEmail.getText().toString();
+        String pass = edAddPass.getText().toString();
+        String rePass = edAddRePass.getText().toString();
+
+        if (username.isEmpty() || name.isEmpty() || email.isEmpty() || pass.isEmpty() || rePass.isEmpty()) {
+            Toast.makeText(getActivity(), "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+            check = -1;
+        } else {
+            ThuKho existingThuthu = thuKhoDAO.selectID(username);
+            if (existingThuthu != null) {
+                Toast.makeText(getActivity(), "Mã thủ thư đã tồn tại", Toast.LENGTH_SHORT).show();
+                check = -1;
+            } else if (!pass.equals(rePass)) {
+                Toast.makeText(getActivity(), "Mật khẩu không trùng khớp", Toast.LENGTH_SHORT).show();
+                check = -1;
+            }
+        }
+        return check;
+    }
+
+    private void clearInputFields() {
+        edAddUsername.setText("");
+        edAddName.setText("");
+        edAddEmail.setText("");
+        edAddPass.setText("");
+        edAddRePass.setText("");
     }
 }
