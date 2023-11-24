@@ -33,7 +33,7 @@
                 android:id="@+id/edIdTV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Mã thủ kho" />
+                android:hint="Mã thành viên" />
 
             <EditText
                 android:id="@+id/edUsernameTV"

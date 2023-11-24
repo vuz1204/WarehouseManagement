@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 public class DbHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "WarehouseManagement.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     public DbHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -50,7 +50,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 "id_hoaDon INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "id_thuKho INTEGER REFERENCES ThuKho (id_thuKho), " +
                 "soHoaDon INTEGER NOT NULL, " +
-                "loaiHoaDon TEXT NOT NULL, " +
+                "loaiHoaDon INTEGER NOT NULL, " +
                 "ngayThang TEXT NOT NULL)";
         db.execSQL(createTableHoaDon);
 

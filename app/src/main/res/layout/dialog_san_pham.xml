@@ -1,6 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="10dp">
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_textview"
+            android:gravity="center_horizontal"
+            android:padding="10dp"
+            android:text="Sách"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <EditText
+                android:id="@+id/edIdSP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Mã sản phẩm" />
+
+            <EditText
+                android:id="@+id/edTenSP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Tên sản phẩm" />
+
+            <EditText
+                android:id="@+id/edGiaSP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Gíá" />
+
+            <EditText
+                android:id="@+id/edSoLuongSP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:hint="Số lượng" />
+
+            <Spinner
+                android:id="@+id/spinnerTheLoaiSP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+
+                <Button
+                    android:id="@+id/btnSaveSP"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/brackground_button"
+                    android:drawableLeft="@drawable/ic_save"
+                    android:text="LƯU"
+                    android:textColor="@color/black"
+                    app:backgroundTint="@null" />
+
+                <Button
+                    android:id="@+id/btnCancelSP"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/brackground_button"
+                    android:drawableLeft="@drawable/ic_cancel"
+                    android:text="HỦY"
+                    android:textColor="@color/black"
+                    app:backgroundTint="@null" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

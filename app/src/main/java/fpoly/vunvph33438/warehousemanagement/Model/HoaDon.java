@@ -1,21 +1,30 @@
 package fpoly.vunvph33438.warehousemanagement.Model;
 
+import java.security.SecureRandom;
+
 public class HoaDon {
     private int id_hoaDon;
     private int id_thuKho;
     private int soHoaDon;
-    private String loaiHoaDon;
+    private int loaiHoaDon;
     private String ngayThang;
 
     public HoaDon() {
     }
 
-    public HoaDon(int id_hoaDon, int id_thuKho, int soHoaDon, String loaiHoaDon, String ngayThang) {
+    public HoaDon(int id_hoaDon, int id_thuKho, int soHoaDon, int loaiHoaDon, String ngayThang) {
         this.id_hoaDon = id_hoaDon;
         this.id_thuKho = id_thuKho;
         this.soHoaDon = soHoaDon;
         this.loaiHoaDon = loaiHoaDon;
         this.ngayThang = ngayThang;
+    }
+
+    public int generateSoHoaDon() {
+        SecureRandom secureRandom = new SecureRandom();
+        this.soHoaDon = secureRandom.nextInt(900000) + 100000;
+
+        return this.soHoaDon;
     }
 
     public int getId_hoaDon() {
@@ -42,11 +51,11 @@ public class HoaDon {
         this.soHoaDon = soHoaDon;
     }
 
-    public String getLoaiHoaDon() {
+    public int getLoaiHoaDon() {
         return loaiHoaDon;
     }
 
-    public void setLoaiHoaDon(String loaiHoaDon) {
+    public void setLoaiHoaDon(int loaiHoaDon) {
         this.loaiHoaDon = loaiHoaDon;
     }
 

@@ -1,6 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="10dp">
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_textview"
+            android:gravity="center_horizontal"
+            android:padding="10dp"
+            android:text="Phiếu mượn"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <EditText
+                android:id="@+id/edMaHD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Mã hóa đơn" />
+
+            <EditText
+                android:id="@+id/edSoHD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Số hóa đơn" />
+
+            <TextView
+                android:id="@+id/tvNgayThang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:text="Ngày tháng"
+                android:textSize="15sp" />
+
+            <RadioGroup
+                android:id="@+id/radioGroupLoaiHD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rbNhap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nhập" />
+
+                <RadioButton
+                    android:id="@+id/rbXuat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Xuất" />
+            </RadioGroup>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+
+                <Button
+                    android:id="@+id/btnSaveHD"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/brackground_button"
+                    android:drawableLeft="@drawable/ic_save"
+                    android:text="LƯU"
+                    android:textColor="@color/black"
+                    app:backgroundTint="@null" />
+
+                <Button
+                    android:id="@+id/btnCancelHD"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/brackground_button"
+                    android:drawableLeft="@drawable/ic_cancel"
+                    android:text="HỦY"
+                    android:textColor="@color/black"
+                    app:backgroundTint="@null" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

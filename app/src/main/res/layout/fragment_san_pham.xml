@@ -6,13 +6,13 @@
     tools:context=".Fragment.SanPhamFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcvSach"
+        android:id="@+id/rcvSP"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="5dp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabSach"
+        android:id="@+id/fabSP"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"

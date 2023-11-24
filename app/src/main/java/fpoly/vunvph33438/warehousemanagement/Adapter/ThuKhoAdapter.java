@@ -2,6 +2,7 @@ package fpoly.vunvph33438.warehousemanagement.Adapter;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
@@ -49,8 +50,12 @@ public class ThuKhoAdapter extends RecyclerView.Adapter<ThuKhoAdapter.ThuKhoView
         holder.tvFullnameTV.setText("Họ và tên: " + list.get(position).getFullname());
         holder.tvEmailTV.setText("Email: " + list.get(position).getEmail());
         holder.tvPasswordTV.setText("Password: " + list.get(position).getPassword());
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences("USER_FILE", Context.MODE_PRIVATE);
+        String loggedInUsername = sharedPreferences.getString("USERNAME", "");
+
         holder.imgDeleteTV.setOnClickListener(v -> {
-            showDeleteDialog(position);
+            showDeleteDialog(position, loggedInUsername);
         });
         holder.itemView.setOnLongClickListener(v -> {
             showUpdateDialog(position);
@@ -85,7 +90,7 @@ public class ThuKhoAdapter extends RecyclerView.Adapter<ThuKhoAdapter.ThuKhoView
             String password = edPasswordTV.getText().toString().trim();
 
             if (fullname.isEmpty() || email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(context, "Vui lòng không bỏ trống", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, R.string.empty_field_warning, Toast.LENGTH_SHORT).show();
             } else {
                 ThuKho thuKho = list.get(position);
                 thuKho.setFullname(fullname);
@@ -93,15 +98,15 @@ public class ThuKhoAdapter extends RecyclerView.Adapter<ThuKhoAdapter.ThuKhoView
                 thuKho.setPassword(password);
                 try {
                     if (thuKhoDAO.update(thuKho)) {
-                        Toast.makeText(context, "Sửa thành công", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, R.string.edit_success, Toast.LENGTH_SHORT).show();
                         list.set(position, thuKho);
                         notifyDataSetChanged();
                         alertDialog.dismiss();
                     } else {
-                        Toast.makeText(context, "Sửa thất bại", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, R.string.edit_not_success, Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception e) {
-                    Toast.makeText(context, "Sửa thất bại", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, R.string.edit_not_success, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -112,29 +117,36 @@ public class ThuKhoAdapter extends RecyclerView.Adapter<ThuKhoAdapter.ThuKhoView
         alertDialog.show();
     }
 
-    public void showDeleteDialog(int position) {
+    public void showDeleteDialog(int position, String loggedInUsername) {
         ThuKho thuKho = list.get(position);
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setIcon(R.drawable.ic_warning);
         builder.setTitle("Thông báo");
-        builder.setMessage("Bạn có chắc chắn muốn xóa thủ thư " + thuKho.getFullname() + " không ?");
-        builder.setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                try {
-                    if (thuKhoDAO.delete(thuKho)) {
-                        Toast.makeText(context, "Xóa thành công", Toast.LENGTH_SHORT).show();
-                        list.remove(thuKho);
-                        notifyItemChanged(position);
-                        notifyItemRemoved(position);
-                    } else {
-                        Toast.makeText(context, "Xóa thất bại", Toast.LENGTH_SHORT).show();
+
+        if (thuKho.getUsername().equals(loggedInUsername)) {
+            builder.setMessage("Bạn không thể xóa tài khoản của chính mình.");
+            builder.setPositiveButton("OK", null);
+        } else {
+            builder.setMessage("Bạn có chắc chắn muốn xóa thủ thư " + thuKho.getFullname() + " không?");
+            builder.setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    try {
+                        if (thuKhoDAO.delete(thuKho)) {
+                            Toast.makeText(context, R.string.delete_success, Toast.LENGTH_SHORT).show();
+                            list.remove(thuKho);
+                            notifyItemChanged(position);
+                            notifyItemRemoved(position);
+                        } else {
+                            Toast.makeText(context, R.string.delete_not_success, Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (Exception e) {
+                        Toast.makeText(context, R.string.delete_not_success, Toast.LENGTH_SHORT).show();
                     }
-                } catch (Exception e) {
-                    Toast.makeText(context, "Xóa thất bại", Toast.LENGTH_SHORT).show();
                 }
-            }
-        });
+            });
+        }
+
         builder.setNegativeButton("Hủy", null);
         builder.show();
     }
