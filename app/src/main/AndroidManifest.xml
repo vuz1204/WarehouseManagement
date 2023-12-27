@@ -22,6 +22,9 @@
             android:name=".MainActivity"
             android:exported="false" />
         <activity
+            android:name=".ChiTietHoaDonActivity"
+            android:exported="false" />
+        <activity
             android:name=".SplashScreenActivity"
             android:exported="true">
             <intent-filter>

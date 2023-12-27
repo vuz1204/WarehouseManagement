@@ -18,7 +18,7 @@
             android:background="@drawable/background_textview"
             android:gravity="center_horizontal"
             android:padding="10dp"
-            android:text="Sách"
+            android:text="Sản phẩm"
             android:textColor="@color/white"
             android:textSize="25sp"
             android:textStyle="bold" />
@@ -45,7 +45,7 @@
                 android:id="@+id/edGiaSP"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Gíá" />
+                android:hint="Giá" />
 
             <EditText
                 android:id="@+id/edSoLuongSP"

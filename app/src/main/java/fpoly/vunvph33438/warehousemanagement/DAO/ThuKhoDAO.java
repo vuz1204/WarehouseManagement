@@ -83,7 +83,7 @@ public class ThuKhoDAO {
                     String password = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PASSWORD));
                     String fullname = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_FULLNAME));
                     String email = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_EMAIL));
-                    int role = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_ROLE)));
+                    int role = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ROLE));
                     list.add(new ThuKho(idThuKho, username, password, fullname, email, role));
                 } while (cursor.moveToNext());
             }
@@ -110,15 +110,19 @@ public class ThuKhoDAO {
         }
     }
 
-    public boolean checkLogin(String username, String password, String role) {
+    // Nên return về 1 object
+    public String checkUsername(String username, String role) {
         SQLiteDatabase sqLiteDatabase = dbHelper.getReadableDatabase();
         String sql = "SELECT * FROM " + TABLE_NAME + " WHERE " +
-                COLUMN_USERNAME + "=? AND " + COLUMN_PASSWORD + "=? AND " + COLUMN_ROLE + "=?";
-        String[] selectionArgs = new String[]{username, password, role};
+                COLUMN_USERNAME + "=? AND " + COLUMN_ROLE + "=?";
+        String[] selectionArgs = new String[]{username, role};
         Cursor cursor = sqLiteDatabase.rawQuery(sql, selectionArgs);
 
         try {
-            return cursor.getCount() > 0;
+            if (cursor.moveToFirst()) {
+                return cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USERNAME));
+            }
+            return null;
         } finally {
             cursor.close();
             sqLiteDatabase.close();

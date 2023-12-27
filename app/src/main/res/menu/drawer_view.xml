@@ -14,10 +14,6 @@
             android:icon="@drawable/ic_product"
             android:title="Quản lý sản phẩm" />
         <item
-            android:id="@+id/nav_chiTietHoaDon"
-            android:icon="@drawable/ic_receipt"
-            android:title="Chi tiết hóa đơn" />
-        <item
             android:id="@+id/nav_thanhVien"
             android:icon="@drawable/ic_people"
             android:title="Quản lý thành viên"

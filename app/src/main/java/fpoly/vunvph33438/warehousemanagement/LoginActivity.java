@@ -81,25 +81,33 @@ public class LoginActivity extends AppCompatActivity {
     public void checkLogin() {
         strUser = edUsername.getText().toString().trim();
         strPass = edPassword.getText().toString().trim();
+
         if (strUser.isEmpty() || strPass.isEmpty()) {
             Toast.makeText(this, "Vui lòng nhập đầy đủ", Toast.LENGTH_SHORT).show();
         } else {
-            if (thuKhoDAO.checkLogin(strUser, strPass, String.valueOf(rolePosition))) {
-                ThuKho thuKho = thuKhoDAO.selectID(strUser);
-                if (thuKho.getRole() == 0) {
-                    valueRole = "admin";
+            String loggedInUsername = thuKhoDAO.checkUsername(strUser, String.valueOf(rolePosition));
+            if (loggedInUsername != null) {
+                ThuKho thuKho = thuKhoDAO.selectID(loggedInUsername);
+                if (thuKho.getPassword().equals(strPass)) {
+                    if (thuKho.getRole() == 0) {
+                        valueRole = "admin";
+                    } else {
+                        valueRole = "thuKho";
+                    }
+
+                    Toast.makeText(this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                    rememberUser(loggedInUsername, strPass, chkRememberPass.isChecked(), rolePosition);
+
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    intent.putExtra("username", loggedInUsername);
+                    intent.putExtra("role", valueRole);
+                    startActivity(intent);
+                    finish();
                 } else {
-                    valueRole = "thuKho";
+                    Toast.makeText(this, "Mật khẩu không đúng", Toast.LENGTH_SHORT).show();
                 }
-                Toast.makeText(this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                rememberUser(strUser, strPass, chkRememberPass.isChecked(), rolePosition);
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                intent.putExtra("username", strUser);
-                intent.putExtra("role", valueRole);
-                startActivity(intent);
-                finish();
             } else {
-                Toast.makeText(this, "Đăng nhập thất bại", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Tài khoản không tồn tại", Toast.LENGTH_SHORT).show();
             }
         }
     }

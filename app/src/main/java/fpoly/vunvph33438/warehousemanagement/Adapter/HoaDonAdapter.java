@@ -14,11 +14,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import fpoly.vunvph33438.warehousemanagement.ChiTietHoaDonActivity;
 import fpoly.vunvph33438.warehousemanagement.DAO.HoaDonDAO;
 import fpoly.vunvph33438.warehousemanagement.DAO.ThuKhoDAO;
 import fpoly.vunvph33438.warehousemanagement.Interface.ItemClickListener;
@@ -76,8 +76,15 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.HoaDonView
         }
 
         holder.imgDeleteHD.setOnClickListener(v -> {
-                showDeleteDialog(position);
+            showDeleteDialog(position);
         });
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, ChiTietHoaDonActivity.class);
+            intent.putExtra("hoaDonId", hoaDon.getId_hoaDon());
+            context.startActivity(intent);
+        });
+
         holder.itemView.setOnLongClickListener(v -> {
             if (itemClickListener != null) {
                 itemClickListener.UpdateItem(position);

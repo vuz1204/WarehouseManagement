@@ -1,6 +1,7 @@
 package fpoly.vunvph33438.warehousemanagement.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -25,8 +26,10 @@ import java.util.Date;
 
 import fpoly.vunvph33438.warehousemanagement.Adapter.HoaDonAdapter;
 import fpoly.vunvph33438.warehousemanagement.DAO.HoaDonDAO;
+import fpoly.vunvph33438.warehousemanagement.DAO.ThuKhoDAO;
 import fpoly.vunvph33438.warehousemanagement.Interface.ItemClickListener;
 import fpoly.vunvph33438.warehousemanagement.Model.HoaDon;
+import fpoly.vunvph33438.warehousemanagement.Model.ThuKho;
 import fpoly.vunvph33438.warehousemanagement.R;
 
 public class HoaDonFragment extends Fragment {
@@ -40,15 +43,14 @@ public class HoaDonFragment extends Fragment {
     RadioButton rbNhap, rbXuat;
     TextView tvNgayThang;
     ArrayList<HoaDon> list = new ArrayList<>();
-    int tienThueSach, positonSach, positionThanhVien;
     HoaDonAdapter hoaDonAdapter;
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_hoa_don, container, false);
+
         recyclerView = view.findViewById(R.id.rcvHoaDon);
         hoaDonDAO = new HoaDonDAO(getContext());
         list = hoaDonDAO.selectAll();
@@ -80,6 +82,7 @@ public class HoaDonFragment extends Fragment {
         edSoHD = dialogView.findViewById(R.id.edSoHD);
         radioGroupLoaiHD = dialogView.findViewById(R.id.radioGroupLoaiHD);
         rbNhap = dialogView.findViewById(R.id.rbNhap);
+        rbNhap.setChecked(true);
         rbXuat = dialogView.findViewById(R.id.rbXuat);
         tvNgayThang = dialogView.findViewById(R.id.tvNgayThang);
 
@@ -105,6 +108,11 @@ public class HoaDonFragment extends Fragment {
                 String ngayThang = simpleDateFormat.format(date);
                 newHoaDon.setNgayThang(ngayThang);
                 newHoaDon.setLoaiHoaDon(radioButtonSelected() ? 0 : 1);
+                Intent intent = getActivity().getIntent();
+                String username = intent.getStringExtra("username");
+                ThuKhoDAO thuKhoDAO = new ThuKhoDAO(getActivity());
+                ThuKho thuKho = thuKhoDAO.selectID(username);
+                newHoaDon.setId_thuKho(thuKho.getId_thuKho());
 
                 try {
                     if (hoaDonDAO.insert(newHoaDon)) {

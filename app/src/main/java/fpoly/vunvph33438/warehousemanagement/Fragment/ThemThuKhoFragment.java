@@ -23,19 +23,12 @@ import fpoly.vunvph33438.warehousemanagement.R;
 public class ThemThuKhoFragment extends Fragment {
 
     View view;
-
     EditText edAddUsername, edAddName, edAddEmail, edAddPass, edAddRePass;
-
     ThuKhoDAO thuKhoDAO;
-
     Button btnSaveAdd;
-
     Spinner spinnerRole;
-
     ArrayList<String> list = new ArrayList<>();
-
     String valueRole;
-
     int rolePosition;
 
     @Override

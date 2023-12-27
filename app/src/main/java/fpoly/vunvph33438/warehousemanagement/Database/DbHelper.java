@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 public class DbHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "WarehouseManagement.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 1;
 
     public DbHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -36,8 +36,11 @@ public class DbHelper extends SQLiteOpenHelper {
                 "tenTheLoai TEXT NOT NULL)";
         db.execSQL(createTableTheLoai);
 
+        String insertDefaultTheLoai = "INSERT INTO TheLoai (tenTheLoai) VALUES ('Điện tử'), ('Gia dụng'), ('Đồ nội thất')";
+        db.execSQL(insertDefaultTheLoai);
+
         // Tạo bảng sản phẩm
-        String createTableSanPham= "CREATE TABLE SanPham (" +
+        String createTableSanPham = "CREATE TABLE SanPham (" +
                 "id_sanPham INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "tenSanPham TEXT NOT NULL, " +
                 "gia INTEGER NOT NULL, " +
@@ -56,11 +59,11 @@ public class DbHelper extends SQLiteOpenHelper {
 
         // Tạo bảng chi tiết hóa đơn
         String createTableChiTietHoaDon = "CREATE TABLE ChiTietHoaDon (" +
-                "id_chiTietHoaDon INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "id_sanPham INTEGER REFERENCES SanPham(id_sanPham) ON DELETE CASCADE, " +
-                "id_hoaDon INTEGER REFERENCES HoaDon(id_hoaDon) ON DELETE CASCADE, " +
+                "id_hoaDon INTEGER REFERENCES HoaDon(id_hoaDon) ON DELETE CASCADE ON UPDATE CASCADE, " +
+                "id_sanPham INTEGER REFERENCES SanPham(id_sanPham) ON DELETE CASCADE ON UPDATE CASCADE, " +
                 "soLuong INTEGER NOT NULL, " +
-                "donGia INTEGER NOT NULL)";
+                "donGia INTEGER NOT NULL, " +
+                "PRIMARY KEY(id_hoaDon, id_sanPham))";
         db.execSQL(createTableChiTietHoaDon);
     }
 

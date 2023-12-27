@@ -1,7 +1,6 @@
 package fpoly.vunvph33438.warehousemanagement.Model;
 
 public class ChiTietHoaDon {
-    private int id_chiTietHoaDon;
     private int id_sanPham;
     private int id_hoaDon;
     private int soLuong;
@@ -10,20 +9,11 @@ public class ChiTietHoaDon {
     public ChiTietHoaDon() {
     }
 
-    public ChiTietHoaDon(int id_chiTietHoaDon, int id_sanPham, int id_hoaDon, int soLuong, int donGia) {
-        this.id_chiTietHoaDon = id_chiTietHoaDon;
+    public ChiTietHoaDon(int id_sanPham, int id_hoaDon, int soLuong, int donGia) {
         this.id_sanPham = id_sanPham;
         this.id_hoaDon = id_hoaDon;
         this.soLuong = soLuong;
         this.donGia = donGia;
-    }
-
-    public int getId_chiTietHoaDon() {
-        return id_chiTietHoaDon;
-    }
-
-    public void setId_chiTietHoaDon(int id_chiTietHoaDon) {
-        this.id_chiTietHoaDon = id_chiTietHoaDon;
     }
 
     public int getId_sanPham() {

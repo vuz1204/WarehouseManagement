@@ -1,5 +1,8 @@
 package fpoly.vunvph33438.warehousemanagement.Model;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 public class SanPham {
     private int id_sanPham;
     private String tenSanPham;
@@ -56,5 +59,10 @@ public class SanPham {
 
     public void setId_theLoai(int id_theLoai) {
         this.id_theLoai = id_theLoai;
+    }
+
+    public String getPriceFormatted() {
+        NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.getDefault());
+        return numberFormat.format(gia);
     }
 }

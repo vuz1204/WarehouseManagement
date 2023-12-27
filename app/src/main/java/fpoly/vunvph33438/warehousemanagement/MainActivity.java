@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,7 +19,6 @@ import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
 
 import fpoly.vunvph33438.warehousemanagement.DAO.ThuKhoDAO;
-import fpoly.vunvph33438.warehousemanagement.Fragment.ChiTietHoaDonFragment;
 import fpoly.vunvph33438.warehousemanagement.Fragment.DoiMatKhauFragment;
 import fpoly.vunvph33438.warehousemanagement.Fragment.HoaDonFragment;
 import fpoly.vunvph33438.warehousemanagement.Fragment.SanPhamFragment;
@@ -99,11 +97,6 @@ public class MainActivity extends AppCompatActivity {
                     getSupportActionBar().setTitle("Quản lý sản phẩm");
                     SanPhamFragment sanPhamFragment = new SanPhamFragment();
                     replaceFragment(sanPhamFragment);
-                }
-                if (item.getItemId() == R.id.nav_chiTietHoaDon) {
-                    getSupportActionBar().setTitle("Chi tiết hóa đơn");
-                    ChiTietHoaDonFragment chiTietHoaDonFragment = new ChiTietHoaDonFragment();
-                    replaceFragment(chiTietHoaDonFragment);
                 }
                 if (item.getItemId() == R.id.nav_thanhVien) {
                     getSupportActionBar().setTitle("Quản lý thành viên");

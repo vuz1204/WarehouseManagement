@@ -20,46 +20,48 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tvMaCTHD"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Mã chi tiết hóa đơn"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <TextView
                 android:id="@+id/tvMaSPCTHD"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Mã sản phẩm"
-                android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/tvMaHDCTHD"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Mã hóa đơn"
-                android:textSize="15sp" />
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/tvSoLuongCTHD"
-                    android:layout_width="0dp"
+                    android:id="@+id/tvDonGiaCTHD"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Số lượng"
+                    android:text="Đơn giá"
                     android:textSize="15sp" />
 
                 <TextView
-                    android:id="@+id/tvDonGiaCTHD"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Đơn giá"
+                    android:text="-"
+                    android:id="@+id/tvMinus"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="100dp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/tvSoLuongCTHD"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Số lượng"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+"
+                    android:id="@+id/tvPlus"
+                    android:textSize="18sp" />
             </LinearLayout>
 
         </LinearLayout>

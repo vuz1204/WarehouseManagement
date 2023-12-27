@@ -51,7 +51,8 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
         if (sanPham != null) {
             holder.tvMaSP.setText("Mã sản phẩm: " + sanPham.getId_sanPham());
             holder.tvTenSP.setText("Tên sản phẩm: " + sanPham.getTenSanPham());
-            holder.tvGiaSP.setText("Giá: " + sanPham.getGia());
+            String formattedPrice = sanPham.getPriceFormatted();
+            holder.tvGiaSP.setText("Giá: " + formattedPrice + " ₫");
             holder.tvSoLuongSP.setText("Số lượng: " + sanPham.getSoLuong());
             holder.tvMaTLSP.setText("Mã loại: " + sanPham.getId_theLoai());
         }
